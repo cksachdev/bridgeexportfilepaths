@@ -10,9 +10,7 @@
       "name": "Export file path names",
       "program": "${workspaceFolder}/exportpath.jsx",
       "stopOnEntry": false,
-      "trace": true,
-      "targetSpecifier":"bridge-9.064",
-      "engineName": "main"
+      "trace": true
     }
   ]
 }

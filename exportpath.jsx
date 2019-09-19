@@ -1,41 +1,20 @@
-#target bridge
+#include "json2.js";
+
+var abc = 123;
+
 if(BridgeTalk.appName == 'bridge'){
     var newCommand = new MenuElement('command', 'Export files List...', 'at the end of Tools');
-    }
+}
 
 newCommand.onSelect = function (){
-  console.log("Hello World!!");
-    FolderListExport();
-    }
+  $.writeln("Hello World!!");
+  var s = "";
+  var arr = [];
+  for(var i=0; i<app.document.selections.length; i++){
+    s = s + "\n" + app.document.selections[i].path;
+    arr.push(app.document.selections[i].path);
+  }
+  // $.writeln(s);
+  $.writeln(JSON.stringify(arr));
+}
 
-function FolderListExport(){
-    var FileList = [];
-    var items = 0;
-    var parentFolder = new Thumbnail(app.document.presentationPath);
-    var logPath = '';
-    console.log(logPath);
-    var logFile = File(logPath);
-    if(parentFolder.container){
-        try{
-            app.synchronousMode = true;
-            parentFolder.refresh();
-            FileList = parentFolder.children;
-            items = FileList.length;
-            if(items == 0) return;
-            logFile = new File('~/Desktop/' + parentFolder.name + '.txt').saveDlg('Create New Log File', '*.txt');
-            logFile.open('w:');
-            for(var i = 0;i < items;i++){
-                logFile.writeln(FileList[i].name);
-            }
-            logFile.close();
-            app.synchronousMode = false;
-        }
-        catch(e){
-            alert('Folder list not saved.');
-            }
-        }
-    else{
-        alert('Please select a folder. Collections are not supported.');
-        return;
-        }
-    }
